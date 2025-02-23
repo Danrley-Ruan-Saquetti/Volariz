@@ -3,25 +3,29 @@ using UnityEngine;
 public class FirstPersonCamera : MonoBehaviour {
 
   public Transform reference;
-  public float speed = 2f;
-  public float lookHorizontalLimit = 45f;
+  public float speedX = 100f;
+  public float speedY = 100f;
 
-  float rotationVertical = 0f;
+  public float maxRotationVertical = 90f;
+
+  float rotationX;
+  float rotationY;
 
   void Start() {
-    Cursor.visible = false;
     Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
   }
 
   void Update() {
-    float offsetX = Input.GetAxis("Mouse X") * speed;
-    float offsetY = Input.GetAxis("Mouse Y") * speed;
+    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * speedX;
+    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speedY;
 
-    rotationVertical -= offsetY;
-    rotationVertical = Mathf.Clamp(rotationVertical, -lookHorizontalLimit, lookHorizontalLimit);
+    rotationY += mouseX;
+    rotationX -= mouseY;
 
-    transform.localEulerAngles = Vector3.right * rotationVertical;
+    rotationX = Mathf.Clamp(rotationX, -maxRotationVertical, maxRotationVertical);
 
-    reference.Rotate(Vector3.up * offsetX);
+    transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+    reference.rotation = Quaternion.Euler(0, rotationY, 0);
   }
 }
