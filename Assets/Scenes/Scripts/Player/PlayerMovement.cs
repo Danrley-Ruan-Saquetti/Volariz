@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
 
     ReadInput();
 
-    if (Input.GetKey(jumpKey) && isGrounded && isReadyToJump) {
+    if (isGrounded && isReadyToJump && Input.GetKey(jumpKey)) {
       Jump();
     }
 
