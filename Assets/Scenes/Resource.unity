@@ -317,6 +317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 858874142}
+  - component: {fileID: 858874143}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -340,6 +341,20 @@ Transform:
   - {fileID: 1700109366}
   m_Father: {fileID: 608004839}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858874143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858874141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e563775a26c1964418c88e2faa2b6cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunData: {fileID: 11400000, guid: 2a2cbfe10c56ec449a89d84bc8dd5bb3, type: 2}
+  cameraTransform: {fileID: 656536702}
 --- !u!1 &1148356551
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +692,7 @@ GameObject:
   - component: {fileID: 1678584243}
   - component: {fileID: 1678584242}
   - component: {fileID: 1678584241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
