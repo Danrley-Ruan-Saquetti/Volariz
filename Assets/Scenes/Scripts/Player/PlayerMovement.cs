@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
 
     ReadInput();
 
-    if (isGrounded && isReadyToJump && Input.GetKey(jumpKey)) {
+    if (CanJump() && Input.GetKey(jumpKey)) {
       Jump();
     }
 
@@ -98,5 +98,9 @@ public class PlayerMovement : MonoBehaviour {
 
   private void ResetJump() {
     isReadyToJump = true;
+  }
+
+  public bool CanJump() {
+    return isGrounded && isReadyToJump;
   }
 }
