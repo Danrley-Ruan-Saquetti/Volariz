@@ -9,15 +9,16 @@ public class GunData : ScriptableObject {
   [Header("Fire Config")]
   public float shootingRange = 10f;
   public float fireRate = 10f;
+  public bool isSingle = false;
 
   [Header("Reload Config")]
   public int magazineSize = 0;
   public float reloadTime = 1_000f;
 
   [Header("Recoil Settings")]
-  public float recoilAmount = 1f;
-  public Vector2 minRecoil = Vector3.zero;
-  public Vector2 maxRecoil = Vector3.zero;
-  public float recoilSpeed = 100f;
-  public float resetRecoilSpeed = 100f;
+  public Vector3 minRecoil = Vector3.zero;
+  public Vector3 maxRecoil = Vector3.zero;
+  public float resetAmount = 5;
+  public float snappiness = 8;
+  public float kickBackZ = 0f;
 }

@@ -5,31 +5,24 @@ using UnityEngine;
 public abstract class Gun : MonoBehaviour {
 
   public GunData gunData;
+  public bool isSingle;
 
-  public Transform cameraTransform;
-
+  [SerializeField] protected ViewPointCamera viewPoint;
   protected ProceduralRecoil proceduralRecoil;
 
   int currentAmmo = 0;
   float nextTimeToFire = 0f;
-
   bool isReloading = false;
 
-  public bool IsAmmoFull {
-    get { return currentAmmo == gunData.magazineSize; }
-  }
-
-  public bool HasAmmo {
-    get { return currentAmmo > 0f; }
-  }
-
-  public bool IsTimeToFire {
-    get { return Time.time >= nextTimeToFire; }
-  }
+  public bool IsAmmoFull { get { return currentAmmo == gunData.magazineSize; } }
+  public bool HasAmmo { get { return currentAmmo > 0f; } }
+  public bool IsTimeToFire { get { return Time.time >= nextTimeToFire; } }
 
   public virtual void Start() {
-    proceduralRecoil = GetComponent<ProceduralRecoil>();
     currentAmmo = gunData.magazineSize;
+    isSingle = gunData.isSingle;
+
+    proceduralRecoil = GetComponent<ProceduralRecoil>();
   }
 
   public virtual void Update() { }

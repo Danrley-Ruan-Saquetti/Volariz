@@ -308,7 +308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 2a2cbfe10c56ec449a89d84bc8dd5bb3, type: 2}
-  cameraTransform: {fileID: 1669594440}
+  isSingle: 0
+  viewPoint: {fileID: 1669594441}
 --- !u!114 &858874144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,11 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54592ee70278814458c6090a7c1d6ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 1669594440}
-  recoil: {x: -2, y: 2, z: 7}
-  kickBackZ: 0.2
-  resetAmount: 5
-  snappiness: 8
+  gunData: {fileID: 11400000, guid: 2a2cbfe10c56ec449a89d84bc8dd5bb3, type: 2}
+  viewPoint: {fileID: 1669594441}
 --- !u!1 &1468012992
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +335,7 @@ GameObject:
   - component: {fileID: 1468012995}
   - component: {fileID: 1468012994}
   - component: {fileID: 1468012993}
+  - component: {fileID: 1468012996}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -411,6 +410,21 @@ Transform:
   - {fileID: 135680526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1468012996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468012992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf959565b521ab41bf9c52e23b586a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPoint: {fileID: 1669594441}
+  speed: {x: 250, y: 250}
+  acceleration: {x: 1, y: 1}
 --- !u!1 &1567399539
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +560,7 @@ GameObject:
   - component: {fileID: 1669594442}
   - component: {fileID: 1669594441}
   m_Layer: 0
-  m_Name: '[Camera] Point View'
+  m_Name: '[Camera] View Point'
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,11 +594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa2d98cc1f542343939b22e5e8acbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 250, y: 250}
-  acceleration: {x: 1, y: 1}
   maxRotationVertical: 45
-  referenceHorizontal: {fileID: 135680526}
-  referenceVertical: {fileID: 1669594440}
+  reference: {fileID: 135680526}
 --- !u!114 &1669594442
 MonoBehaviour:
   m_ObjectHideFlags: 0
