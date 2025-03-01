@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cfbbd8cdc97ace4d9e2438593b285eb, type: 3}
-  m_Name: Pistol
+  m_Name: AK47
   m_EditorClassIdentifier: 
-  gunName: Pistol
+  gunName: AK47
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
   shootingRange: 100
   fireRate: 10
-  isSingle: 1
-  magazineSize: 1000
+  isSingle: 0
+  magazineSize: 30
   reloadTime: 0.3
   minRecoil: {x: -4, y: -1.5, z: -5}
   maxRecoil: {x: 0, y: 1.5, z: 5}

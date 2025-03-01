@@ -34,7 +34,7 @@ public class ProceduralRecoil : MonoBehaviour {
     targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * gunData.resetAmount);
 
     transform.localRotation = Quaternion.Euler(currentRotation);
-    viewPoint.transform.localRotation = Quaternion.Euler(currentRotation);
+    viewPoint.ApplyShake(currentRotation);
   }
 
   void UpdatePosition() {

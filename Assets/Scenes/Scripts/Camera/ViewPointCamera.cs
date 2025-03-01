@@ -3,11 +3,14 @@ using UnityEngine;
 public class ViewPointCamera : MonoBehaviour {
 
   [Header("Rotation")]
-  Vector3 rotation;
+  Vector3 masterRotation;
   public float maxRotationVertical = 90f;
 
   [Header("References")]
   [SerializeField] Transform reference;
+
+  [Header("Shake")]
+  Vector3 shakeRotation = Vector3.zero;
 
   void Start() {
     Cursor.lockState = CursorLockMode.Locked;
@@ -20,15 +23,19 @@ public class ViewPointCamera : MonoBehaviour {
   }
 
   public void SetRotation(Vector3 rotation) {
-    this.rotation = rotation;
+    masterRotation = rotation;
 
     AdjustRotationVertical();
   }
 
-  public void ApplyRotation(Vector3 rotation) {
-    this.rotation += rotation;
+  public void ApplyRotation(Vector3 offset) {
+    masterRotation += offset;
 
     AdjustRotationVertical();
+  }
+
+  public void ApplyShake(Vector3 shake) {
+    shakeRotation = shake;
   }
 
   public void RotateReference(Quaternion rotation) {
@@ -40,14 +47,14 @@ public class ViewPointCamera : MonoBehaviour {
   }
 
   private void AdjustRotationVertical() {
-    this.rotation.x = Mathf.Clamp(this.rotation.x, -maxRotationVertical, maxRotationVertical);
+    masterRotation.x = Mathf.Clamp(masterRotation.x, -maxRotationVertical, maxRotationVertical);
   }
 
   public Quaternion CalculateRotationVertical() {
-    return Quaternion.Euler(rotation.x, rotation.y, 0);
+    return Quaternion.Euler(masterRotation.x + shakeRotation.x, masterRotation.y + shakeRotation.y, shakeRotation.z);
   }
 
   public Quaternion CalculateRotationHorizontal() {
-    return Quaternion.Euler(0, rotation.y, 0);
+    return Quaternion.Euler(shakeRotation.x, masterRotation.y + shakeRotation.y, shakeRotation.z);
   }
 }
