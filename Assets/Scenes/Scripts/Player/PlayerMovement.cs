@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour {
   public float jumpForce;
   public float jumpSpeedMultiplier;
   public float jumpCooldown;
-  bool isReadyToJump;
+  bool isJumping = false;
 
 
   [Header("Ground Check")]
@@ -33,8 +33,6 @@ public class PlayerMovement : MonoBehaviour {
   void Start() {
     rb = GetComponent<Rigidbody>();
     rb.freezeRotation = true;
-
-    isReadyToJump = true;
   }
 
   void Update() {
@@ -91,16 +89,16 @@ public class PlayerMovement : MonoBehaviour {
 
     rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
-    isReadyToJump = false;
+    isJumping = true;
 
     Invoke(nameof(ResetJump), jumpCooldown);
   }
 
   private void ResetJump() {
-    isReadyToJump = true;
+    isJumping = false;
   }
 
   public bool CanJump() {
-    return isGrounded && isReadyToJump;
+    return !isJumping && isGrounded;
   }
 }

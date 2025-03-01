@@ -253,13 +253,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608004838}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.124, y: -0.111, z: 0.721}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.12400003, y: -0.11100006, z: 0.72100013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 858874142}
-  m_Father: {fileID: 1247035395}
+  m_Father: {fileID: 1669594440}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &858874141
 GameObject:
@@ -270,6 +270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 858874142}
+  - component: {fileID: 858874144}
   - component: {fileID: 858874143}
   m_Layer: 0
   m_Name: Gun
@@ -308,40 +309,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 2a2cbfe10c56ec449a89d84bc8dd5bb3, type: 2}
   cameraTransform: {fileID: 1669594440}
-  cameraManager: {fileID: 1669594441}
---- !u!1 &1247035394
-GameObject:
+--- !u!114 &858874144
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1247035395}
-  m_Layer: 0
-  m_Name: Virtual Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1247035395
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247035394}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1669594440}
-  - {fileID: 608004839}
-  m_Father: {fileID: 1468012995}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 858874141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54592ee70278814458c6090a7c1d6ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 1669594440}
+  recoil: {x: -2, y: 2, z: 7}
+  kickBackZ: 0.2
+  resetAmount: 5
+  snappiness: 8
 --- !u!1 &1468012992
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +366,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  orientation: {fileID: 1247035395}
+  orientation: {fileID: 1669594440}
 --- !u!54 &1468012994
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -423,8 +407,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1669594440}
   - {fileID: 135680526}
-  - {fileID: 1247035395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1567399539
@@ -562,7 +546,7 @@ GameObject:
   - component: {fileID: 1669594442}
   - component: {fileID: 1669594441}
   m_Layer: 0
-  m_Name: Camera View
+  m_Name: '[Camera] Point View'
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,11 +561,12 @@ Transform:
   m_GameObject: {fileID: 1669594439}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1247035395}
+  m_Children:
+  - {fileID: 608004839}
+  m_Father: {fileID: 1468012995}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1669594441
 MonoBehaviour:
@@ -595,13 +580,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa2d98cc1f542343939b22e5e8acbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 250
-  speedY: 250
-  accelerationX: 1
-  accelerationY: 1
+  speed: {x: 250, y: 250}
+  acceleration: {x: 1, y: 1}
   maxRotationVertical: 45
   referenceHorizontal: {fileID: 135680526}
-  referenceVertical: {fileID: 1247035395}
+  referenceVertical: {fileID: 1669594440}
 --- !u!114 &1669594442
 MonoBehaviour:
   m_ObjectHideFlags: 0

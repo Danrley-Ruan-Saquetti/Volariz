@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
 
-  public float speedX = 100f;
-  public float speedY = 100f;
-  public float accelerationX = 1f;
-  public float accelerationY = 1f;
+  [Header("Movement")]
+  public Vector2 speed = new(200f, 200f);
+  public Vector2 acceleration = Vector2.one;
 
+  [Header("Rotation")]
   public float maxRotationVertical = 90f;
+  Vector3 rotation;
 
-  protected float rotationX;
-  protected float rotationY;
-
-  public Transform referenceHorizontal;
-  public Transform referenceVertical;
+  [Header("References")]
+  [SerializeField] Transform referenceHorizontal;
+  [SerializeField] Transform referenceVertical;
 
   void Start() {
     Cursor.lockState = CursorLockMode.Locked;
@@ -23,25 +22,37 @@ public class CameraMovement : MonoBehaviour {
   void Update() {
     ReadInput();
 
-    RotateVertical(referenceVertical);
-    RotateHorizontal(referenceHorizontal);
+    RotateReferenceVertical(CalculateRotationVerticalMouseMove());
+    RotateReferenceHorizontal(CalculateRotationHorizontalMouseMove());
   }
 
-  protected void ReadInput() {
-    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * speedX * accelerationX;
-    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speedY * accelerationY;
+  void ReadInput() {
+    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * speed.x * acceleration.x;
+    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * speed.y * acceleration.y;
 
-    rotationY += mouseX;
-    rotationX -= mouseY;
+    rotation.y += mouseX;
+    rotation.x -= mouseY;
 
-    rotationX = Mathf.Clamp(rotationX, -maxRotationVertical, maxRotationVertical);
+    rotation.x = AdjustRotationVertical(rotation.x);
   }
 
-  void RotateVertical(Transform transform) {
-    transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+  public float AdjustRotationVertical(float x) {
+    return Mathf.Clamp(x, -maxRotationVertical, maxRotationVertical);
   }
 
-  void RotateHorizontal(Transform transform) {
-    transform.rotation = Quaternion.Euler(0, rotationY, 0);
+  public void RotateReferenceVertical(Quaternion rotation) {
+    referenceVertical.rotation = rotation;
+  }
+
+  public void RotateReferenceHorizontal(Quaternion rotation) {
+    referenceHorizontal.rotation = rotation;
+  }
+
+  public Quaternion CalculateRotationVerticalMouseMove() {
+    return Quaternion.Euler(rotation.x, rotation.y, rotation.z);
+  }
+
+  public Quaternion CalculateRotationHorizontalMouseMove() {
+    return Quaternion.Euler(0, rotation.y, rotation.z);
   }
 }
