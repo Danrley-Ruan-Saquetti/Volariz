@@ -17,6 +17,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   shootingRange: 100
-  fireRate: 4
-  magazineSize: 10
+  fireRate: 10
+  magazineSize: 100
   reloadTime: 2
+  recoilAmount: 10
+  minRecoil: {x: -50, y: -50}
+  maxRecoil: {x: 0, y: 0}
+  recoilSpeed: 10
+  resetRecoilSpeed: 1000

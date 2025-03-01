@@ -1,17 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(ProceduralRecoil))]
 public abstract class Gun : MonoBehaviour {
 
   public GunData gunData;
 
   public Transform cameraTransform;
 
-  private float currentAmmo = 0f;
+  protected ProceduralRecoil proceduralRecoil;
 
-  private float nextTimeToFire = 0f;
+  int currentAmmo = 0;
+  float nextTimeToFire = 0f;
 
-  private bool isReloading = false;
+  bool isReloading = false;
 
   public bool IsAmmoFull {
     get { return currentAmmo == gunData.magazineSize; }
@@ -25,7 +27,8 @@ public abstract class Gun : MonoBehaviour {
     get { return Time.time >= nextTimeToFire; }
   }
 
-  void Start() {
+  public virtual void Start() {
+    proceduralRecoil = GetComponent<ProceduralRecoil>();
     currentAmmo = gunData.magazineSize;
   }
 
@@ -43,14 +46,10 @@ public abstract class Gun : MonoBehaviour {
     }
   }
 
-  private IEnumerator Reload() {
+  IEnumerator Reload() {
     isReloading = true;
 
-    Debug.Log(gunData.gunName + " reloading");
-
     yield return new WaitForSeconds(gunData.reloadTime);
-
-    Debug.Log(gunData.gunName + " reloaded");
 
     isReloading = false;
     currentAmmo = gunData.magazineSize;
@@ -60,15 +59,18 @@ public abstract class Gun : MonoBehaviour {
     nextTimeToFire = Time.time + (1 / gunData.fireRate);
     currentAmmo--;
 
-    Debug.Log(gunData.gunName + " shoot");
-
     Shoot();
+    ApplyRecoil();
   }
 
   public abstract void Shoot();
 
+  public virtual void ApplyRecoil() {
+    proceduralRecoil.ApplyRecoil();
+  }
+
   public bool CanReload() {
-    return !isReloading && HasAmmo && !IsAmmoFull;
+    return !isReloading && !IsAmmoFull;
   }
 
   public bool CanShoot() {
