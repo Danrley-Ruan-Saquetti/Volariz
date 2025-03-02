@@ -25,17 +25,19 @@ public class ViewPointCamera : MonoBehaviour {
   public void SetRotation(Vector3 rotation) {
     masterRotation = rotation;
 
-    AdjustRotationVertical();
+    masterRotation.x = AdjustRotationVertical(masterRotation.x);
   }
 
   public void ApplyRotation(Vector3 offset) {
     masterRotation += offset;
 
-    AdjustRotationVertical();
+    masterRotation.x = AdjustRotationVertical(masterRotation.x);
   }
 
   public void ApplyShake(Vector3 shake) {
     shakeRotation = shake;
+
+    shakeRotation.x = AdjustRotationVertical(masterRotation.x + shakeRotation.x) - masterRotation.x;
   }
 
   public void RotateReference(Quaternion rotation) {
@@ -46,8 +48,8 @@ public class ViewPointCamera : MonoBehaviour {
     transform.localRotation = rotation;
   }
 
-  private void AdjustRotationVertical() {
-    masterRotation.x = Mathf.Clamp(masterRotation.x, -maxRotationVertical, maxRotationVertical);
+  private float AdjustRotationVertical(float x) {
+    return Mathf.Clamp(x, -maxRotationVertical, maxRotationVertical);
   }
 
   public Quaternion CalculateRotationVertical() {
