@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon Gun", menuName = "Weapons/Guns/Gun Data")]
+[CreateAssetMenu(fileName = "Weapon Gun", menuName = "Weapons/Gun Data")]
 public class GunData : ScriptableObject {
 
   public string gunName;
@@ -14,6 +14,9 @@ public class GunData : ScriptableObject {
   [Header("Reload Config")]
   public int magazineSize = 0;
   public float reloadTime = 1_000f;
+
+  [Header("Projectile Config")]
+  public ProjectileData projectileData;
 
   [Header("Recoil Settings")]
   public Vector3 minRecoil = Vector3.zero;
