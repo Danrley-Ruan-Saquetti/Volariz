@@ -5,9 +5,9 @@ public class ProceduralRecoil : MonoBehaviour {
   [SerializeField] GunData gunData;
   [SerializeField] ViewPointCamera viewPoint;
 
-  Vector3 currentRotation = Vector3.zero;
-  Vector3 targetRotation = Vector3.zero;
-  Vector3 targetPosition = Vector3.zero;
+  [SerializeField, Readonly] Vector3 currentRotation = Vector3.zero;
+  [SerializeField, Readonly] Vector3 targetRotation = Vector3.zero;
+  [SerializeField, Readonly] Vector3 targetPosition = Vector3.zero;
   Vector3 initialGunPosition = Vector3.zero;
 
   void Start() {
@@ -28,7 +28,6 @@ public class ProceduralRecoil : MonoBehaviour {
       Random.Range(gunData.minRecoil.z, gunData.maxRecoil.z)
     );
   }
-
   void UpdateRotation() {
     currentRotation = Vector3.Slerp(currentRotation, targetRotation, Time.deltaTime * gunData.snappiness);
     targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * gunData.resetAmount);

@@ -3,14 +3,14 @@ using UnityEngine;
 public class ViewPointCamera : MonoBehaviour {
 
   [Header("Rotation")]
-  Vector3 masterRotation;
+  [SerializeField, Readonly] Vector3 masterRotation;
   public float maxRotationVertical = 90f;
 
   [Header("References")]
   [SerializeField] Transform reference;
 
   [Header("Shake")]
-  Vector3 shakeRotation = Vector3.zero;
+  [SerializeField, Readonly] Vector3 shakeRotation = Vector3.zero;
 
   void Start() {
     Cursor.lockState = CursorLockMode.Locked;

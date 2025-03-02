@@ -10,9 +10,9 @@ public abstract class Gun : MonoBehaviour {
   [SerializeField] protected ViewPointCamera viewPoint;
   protected ProceduralRecoil proceduralRecoil;
 
-  int currentAmmo = 0;
-  float nextTimeToFire = 0f;
-  bool isReloading = false;
+  [SerializeField, Readonly] int currentAmmo = 0;
+  [SerializeField, Readonly] float nextTimeToFire = 0f;
+  [SerializeField, Readonly] bool isReloading = false;
 
   public bool IsAmmoFull { get { return currentAmmo == gunData.magazineSize; } }
   public bool HasAmmo { get { return currentAmmo > 0f; } }

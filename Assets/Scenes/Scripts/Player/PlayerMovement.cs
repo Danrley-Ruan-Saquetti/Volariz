@@ -2,33 +2,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-  [Header("Keybinds")]
-  public KeyCode jumpKey = KeyCode.Space;
+  [SerializeField] Transform orientation;
+  Rigidbody rb;
 
+  [Header("Keybinds")]
+  [SerializeField] KeyCode jumpKey = KeyCode.Space;
 
   [Header("Movement")]
-  public float moveSpeed = 0;
+  [SerializeField] float moveSpeed = 0;
 
-  public float groundDrag;
+  [SerializeField] float groundDrag;
 
-  public float jumpForce;
-  public float jumpSpeedMultiplier;
-  public float jumpCooldown;
-  bool isJumping = false;
-
+  [SerializeField] float jumpForce;
+  [SerializeField] float jumpSpeedMultiplier;
+  [SerializeField] float jumpCooldown;
+  Vector3 moveDirection;
 
   [Header("Ground Check")]
-  public float playerHeight;
-  public LayerMask groundLayer;
+  [SerializeField] float playerHeight;
+  [SerializeField] LayerMask groundLayer;
   bool isGrounded;
 
   float horizontalInput;
   float verticalInput;
-
-  public Transform orientation;
-  Vector3 moveDirection;
-
-  Rigidbody rb;
 
   void Start() {
     rb = GetComponent<Rigidbody>();
@@ -88,17 +84,9 @@ public class PlayerMovement : MonoBehaviour {
     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
     rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
-    isJumping = true;
-
-    Invoke(nameof(ResetJump), jumpCooldown);
   }
 
-  private void ResetJump() {
-    isJumping = false;
-  }
-
-  public bool CanJump() {
-    return !isJumping && isGrounded;
+  bool CanJump() {
+    return isGrounded;
   }
 }

@@ -21,8 +21,8 @@ MonoBehaviour:
   isSingle: 0
   magazineSize: 30
   reloadTime: 0.3
-  minRecoil: {x: -4, y: -1.5, z: -5}
-  maxRecoil: {x: 0, y: 1.5, z: 5}
-  resetAmount: 8
-  snappiness: 5
-  kickBackZ: 0.2
+  minRecoil: {x: -8, y: -2, z: -5}
+  maxRecoil: {x: -4, y: 2, z: 5}
+  resetAmount: 3
+  snappiness: 8
+  kickBackZ: 0.1
