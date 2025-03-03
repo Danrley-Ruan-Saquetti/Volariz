@@ -4,7 +4,7 @@ public class ViewPointCamera : MonoBehaviour {
 
   [Header("References")]
   [SerializeField] Transform reference;
-  [SerializeField, Readonly] public Camera Camera;
+  [Readonly] public Camera Camera;
 
   [Header("Rotation")]
   [SerializeField, Readonly] Vector3 masterRotation;
