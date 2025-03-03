@@ -3,13 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour {
 
-  [HideInInspector] public Vector3 direction = Vector3.zero;
-  [HideInInspector] public Vector3 shootForce = Vector3.zero;
-  [HideInInspector] public Vector3 upwardForce = Vector3.zero;
+  [Header("References")]
+  [SerializeField, Readonly] Rigidbody rb;
 
-  Rigidbody rb;
+  [Header("State")]
+  [Readonly] public Vector3 direction = Vector3.zero;
+  [Readonly] public Vector3 shootForce = Vector3.zero;
+  [Readonly] public Vector3 upwardForce = Vector3.zero;
 
-  bool collided = false;
+  [SerializeField, Readonly] bool collided = false;
 
   void Start() {
     rb = GetComponent<Rigidbody>();

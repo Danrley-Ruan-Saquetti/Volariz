@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
 
+  [Header("References")]
   [SerializeField] ViewPointCamera viewPoint;
 
   [Header("Movement")]

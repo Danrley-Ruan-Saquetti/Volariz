@@ -4,16 +4,19 @@ using UnityEngine;
 [RequireComponent(typeof(ProceduralRecoil))]
 public abstract class Gun : MonoBehaviour {
 
+  [Header("References")]
+  [SerializeField] protected ViewPointCamera viewPoint;
   public GunData gunData;
   public Transform attackPoint;
-  public bool isSingle;
 
-  [SerializeField] protected ViewPointCamera viewPoint;
   protected ProceduralRecoil proceduralRecoil;
 
+  [Header("State")]
   [SerializeField, Readonly] int currentAmmo = 0;
   [SerializeField, Readonly] float nextTimeToFire = 0f;
   [SerializeField, Readonly] bool isReloading = false;
+
+  public bool isSingle;
 
   public bool IsAmmoFull { get { return currentAmmo == gunData.magazineSize; } }
   public bool HasAmmo { get { return currentAmmo > 0f; } }

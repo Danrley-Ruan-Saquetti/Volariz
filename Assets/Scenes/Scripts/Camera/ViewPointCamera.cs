@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class ViewPointCamera : MonoBehaviour {
 
-  [HideInInspector] public Camera Camera;
+  [Header("References")]
+  [SerializeField] Transform reference;
+  [SerializeField, Readonly] public Camera Camera;
 
   [Header("Rotation")]
   [SerializeField, Readonly] Vector3 masterRotation;
   public float maxRotationVertical = 90f;
 
-  [Header("References")]
-  [SerializeField] Transform reference;
-
-  [Header("Shake")]
+  [Header("State")]
   [SerializeField, Readonly] Vector3 shakeRotation = Vector3.zero;
 
   void Start() {

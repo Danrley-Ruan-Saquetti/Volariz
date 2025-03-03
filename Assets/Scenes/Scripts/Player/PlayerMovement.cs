@@ -22,8 +22,6 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float jumpHeight = 1f;
 
   [Header("State")]
-  [SerializeField, Readonly] Vector3 velocity;
-
   [SerializeField, Readonly] float verticalVelocity;
   [SerializeField, Readonly] float speed;
 

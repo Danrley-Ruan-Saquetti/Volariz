@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class ProceduralRecoil : MonoBehaviour {
 
+  [Header("References")]
   [SerializeField] GunData gunData;
   [SerializeField] ViewPointCamera viewPoint;
 
+  [Header("State")]
   [SerializeField, Readonly] Vector3 currentRotation = Vector3.zero;
   [SerializeField, Readonly] Vector3 targetRotation = Vector3.zero;
   [SerializeField, Readonly] Vector3 targetPosition = Vector3.zero;
-  Vector3 initialGunPosition = Vector3.zero;
+  [SerializeField, Readonly] Vector3 initialGunPosition = Vector3.zero;
 
   void Start() {
     initialGunPosition = transform.localPosition;
