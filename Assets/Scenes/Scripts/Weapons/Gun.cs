@@ -9,7 +9,6 @@ public abstract class Gun : MonoBehaviour {
   public bool isSingle;
 
   [SerializeField] protected ViewPointCamera viewPoint;
-  protected Camera cameraView;
   protected ProceduralRecoil proceduralRecoil;
 
   [SerializeField, Readonly] int currentAmmo = 0;
@@ -27,7 +26,6 @@ public abstract class Gun : MonoBehaviour {
 
   public virtual void Start() {
     proceduralRecoil = GetComponent<ProceduralRecoil>();
-    cameraView = viewPoint.GetComponent<Camera>();
   }
 
   public virtual void Update() { }
@@ -69,8 +67,14 @@ public abstract class Gun : MonoBehaviour {
     proceduralRecoil.ApplyRecoil();
   }
 
+  public virtual GameObject CreateProjectile() {
+    Vector3 direction = GetDirectionTarget(GetTargetPoint());
+
+    return CreateProjectile(direction);
+  }
+
   public Vector3 GetTargetPoint() {
-    Ray ray = cameraView.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+    Ray ray = viewPoint.Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
     Vector3 targetPoint;
     if (Physics.Raycast(ray, out RaycastHit hit, gunData.shootingRange, gunData.targetLayerMask)) {
@@ -94,23 +98,16 @@ public abstract class Gun : MonoBehaviour {
     return directionWithSpread.normalized;
   }
 
-  public virtual GameObject CreateProjectile() {
-    Vector3 direction = GetDirectionTarget(GetTargetPoint());
-
-    return CreateProjectile(direction);
-  }
-
   public virtual GameObject CreateProjectile(Vector3 direction) {
-    GameObject projectile = Instantiate(gunData.projectileData.model, attackPoint.position, Quaternion.identity);
+    GameObject projectileGameObject = Instantiate(gunData.projectileData.model, attackPoint.position, Quaternion.identity);
 
-    Rigidbody rb = projectile.GetComponent<Rigidbody>();
+    Projectile projectile = projectileGameObject.GetComponent<Projectile>();
 
-    projectile.transform.forward = direction;
+    projectile.direction = direction;
+    projectile.shootForce = direction * gunData.projectileData.shootForce;
+    projectile.upwardForce = viewPoint.Camera.transform.up * gunData.projectileData.upwardForce;
 
-    rb.AddForce(direction * gunData.projectileData.shootForce, ForceMode.Impulse);
-    rb.AddForce(cameraView.transform.up * gunData.projectileData.upwardForce, ForceMode.Impulse);
-
-    return projectile;
+    return projectileGameObject;
   }
 
   public bool CanReload() {

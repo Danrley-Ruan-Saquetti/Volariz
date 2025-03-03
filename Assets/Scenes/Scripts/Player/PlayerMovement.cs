@@ -3,90 +3,66 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
   [SerializeField] Transform orientation;
-  Rigidbody rb;
+  CharacterController characterController;
 
   [Header("Keybinds")]
   [SerializeField] KeyCode jumpKey = KeyCode.Space;
 
   [Header("Movement")]
+  [SerializeField, Readonly] Vector3 velocity;
+  [SerializeField] float gravity = 9.81f;
   [SerializeField] float moveSpeed = 0;
+  float verticalVelocity;
 
-  [SerializeField] float groundDrag;
+  [Header("Jump")]
+  [SerializeField] float jumpHeight;
 
-  [SerializeField] float jumpForce;
-  [SerializeField] float jumpSpeedMultiplier;
-  [SerializeField] float jumpCooldown;
-  Vector3 moveDirection;
-
-  [Header("Ground Check")]
-  [SerializeField] float playerHeight;
-  [SerializeField] LayerMask groundLayer;
-  bool isGrounded;
+  public bool IsGrounded { get { return characterController.isGrounded; } }
 
   float horizontalInput;
   float verticalInput;
 
   void Start() {
-    rb = GetComponent<Rigidbody>();
-    rb.freezeRotation = true;
+    characterController = GetComponent<CharacterController>();
   }
 
   void Update() {
-    isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
-
     ReadInput();
+    Movement();
+  }
 
-    if (CanJump() && Input.GetKey(jumpKey)) {
-      Jump();
+  void ReadInput() {
+    if (IsGrounded) {
+      horizontalInput = Input.GetAxisRaw("Horizontal");
+      verticalInput = Input.GetAxisRaw("Vertical");
     }
+  }
 
-    SpeedControl();
+  void Movement() {
+    GroundMovement();
+  }
 
-    if (isGrounded) {
-      rb.linearDamping = groundDrag;
+  void GroundMovement() {
+    Vector3 direction = orientation.right * horizontalInput + orientation.forward * verticalInput;
+
+    direction = direction.normalized * moveSpeed;
+
+    direction.y = CalculateGravity();
+
+    characterController.Move(direction * Time.deltaTime);
+  }
+
+  float CalculateGravity() {
+    if (IsGrounded) {
+      verticalVelocity = -1f;
+
+      if (Input.GetKey(jumpKey)) {
+        verticalVelocity = Mathf.Sqrt(jumpHeight * gravity * 2);
+      }
     } else {
-      rb.linearDamping = 0;
-    }
-  }
-
-  void FixedUpdate() {
-    MovePlayer();
-  }
-
-  private void ReadInput() {
-    horizontalInput = Input.GetAxisRaw("Horizontal");
-    verticalInput = Input.GetAxisRaw("Vertical");
-  }
-
-  private void MovePlayer() {
-    moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-    Vector3 force = 10f * moveSpeed * moveDirection.normalized;
-
-    if (!isGrounded) {
-      force *= jumpSpeedMultiplier;
+      verticalVelocity -= gravity * Time.deltaTime;
     }
 
-    rb.AddForce(force, ForceMode.Force);
-  }
-
-  private void SpeedControl() {
-    var flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-    if (flatVel.magnitude > moveSpeed) {
-      Vector3 limitedVel = flatVel.normalized * moveSpeed;
-
-      rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
-    }
-  }
-
-  private void Jump() {
-    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-
-    rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-  }
-
-  bool CanJump() {
-    return isGrounded;
+    return verticalVelocity;
   }
 }

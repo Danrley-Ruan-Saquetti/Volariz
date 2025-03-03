@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ViewPointCamera : MonoBehaviour {
 
+  [HideInInspector] public Camera Camera;
+
   [Header("Rotation")]
   [SerializeField, Readonly] Vector3 masterRotation;
   public float maxRotationVertical = 90f;
@@ -15,6 +17,8 @@ public class ViewPointCamera : MonoBehaviour {
   void Start() {
     Cursor.lockState = CursorLockMode.Locked;
     Cursor.visible = false;
+
+    Camera = GetComponent<Camera>();
   }
 
   void Update() {

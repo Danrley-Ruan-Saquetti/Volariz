@@ -15,8 +15,13 @@ public class ProceduralRecoil : MonoBehaviour {
   }
 
   void Update() {
-    UpdateRotation();
-    UpdatePosition();
+    UpdateRecoil();
+
+    CalculateNextRotation();
+    CalculateNextPosition();
+
+    ResetRotation();
+    ResetPosition();
   }
 
   public void ApplyRecoil() {
@@ -28,16 +33,25 @@ public class ProceduralRecoil : MonoBehaviour {
       Random.Range(gunData.minRecoil.z, gunData.maxRecoil.z)
     );
   }
-  void UpdateRotation() {
-    currentRotation = Vector3.Slerp(currentRotation, targetRotation, Time.deltaTime * gunData.snappiness);
-    targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * gunData.resetAmount);
 
+  void UpdateRecoil() {
     transform.localRotation = Quaternion.Euler(currentRotation);
     viewPoint.ApplyShake(currentRotation);
   }
 
-  void UpdatePosition() {
-    transform.localPosition = Vector3.Slerp(transform.localPosition, targetPosition, Time.deltaTime * gunData.snappiness);
-    targetPosition = Vector3.Lerp(targetPosition, initialGunPosition, Time.deltaTime * gunData.resetAmount);
+  void CalculateNextRotation() {
+    currentRotation = Vector3.Lerp(currentRotation, targetRotation, Time.deltaTime * gunData.ricochetSpeed);
+  }
+
+  void CalculateNextPosition() {
+    transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * gunData.ricochetSpeed);
+  }
+
+  void ResetRotation() {
+    targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, Time.deltaTime * gunData.resetSpeed);
+  }
+
+  void ResetPosition() {
+    targetPosition = Vector3.Lerp(targetPosition, initialGunPosition, Time.deltaTime * gunData.resetSpeed);
   }
 }

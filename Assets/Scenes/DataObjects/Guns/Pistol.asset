@@ -19,8 +19,8 @@ MonoBehaviour:
   shootingRange: 100
   fireRate: 3
   isSingle: 1
-  magazineSize: 30
-  reloadTime: 0.3
+  magazineSize: 6
+  reloadTime: 1
   projectileData: {fileID: 11400000, guid: 89aa0833478750244a15c48cc230d990, type: 2}
   minRecoil: {x: -4, y: -2, z: -5}
   maxRecoil: {x: 0, y: 2, z: 5}

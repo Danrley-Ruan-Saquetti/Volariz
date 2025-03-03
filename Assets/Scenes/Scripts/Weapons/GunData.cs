@@ -21,7 +21,7 @@ public class GunData : ScriptableObject {
   [Header("Recoil Settings")]
   public Vector3 minRecoil = Vector3.zero;
   public Vector3 maxRecoil = Vector3.zero;
-  public float resetAmount = 5;
-  public float snappiness = 8;
+  public float resetSpeed = 5;
+  public float ricochetSpeed = 8;
   public float kickBackZ = 0f;
 }

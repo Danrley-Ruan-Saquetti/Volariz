@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3569766012122503366}
   - component: {fileID: 4259174062823989872}
   m_Layer: 0
-  m_Name: Pistol
+  m_Name: AK47
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
