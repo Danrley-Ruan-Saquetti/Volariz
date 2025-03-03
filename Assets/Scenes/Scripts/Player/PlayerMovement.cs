@@ -2,28 +2,40 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+  [Header("References")]
   [SerializeField] Transform orientation;
   CharacterController characterController;
 
   [Header("Keybinds")]
   [SerializeField] KeyCode jumpKey = KeyCode.Space;
+  [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
 
   [Header("Movement")]
-  [SerializeField, Readonly] Vector3 velocity;
   [SerializeField] float gravity = 9.81f;
-  [SerializeField] float moveSpeed = 0;
-  float verticalVelocity;
+  [SerializeField] float walkSpeed = 5f;
+
+  [Header("Movement Sprint")]
+  [SerializeField] float sprintSpeed = 10f;
+  [SerializeField] float sprintTransitSpeed = 5f;
 
   [Header("Jump")]
-  [SerializeField] float jumpHeight;
+  [SerializeField] float jumpHeight = 1f;
+
+  [Header("State")]
+  [SerializeField, Readonly] Vector3 velocity;
+
+  [SerializeField, Readonly] float verticalVelocity;
+  [SerializeField, Readonly] float speed;
+
+  [SerializeField, Readonly] float horizontalInput;
+  [SerializeField, Readonly] float verticalInput;
 
   public bool IsGrounded { get { return characterController.isGrounded; } }
 
-  float horizontalInput;
-  float verticalInput;
-
   void Start() {
     characterController = GetComponent<CharacterController>();
+
+    speed = walkSpeed;
   }
 
   void Update() {
@@ -45,11 +57,25 @@ public class PlayerMovement : MonoBehaviour {
   void GroundMovement() {
     Vector3 direction = orientation.right * horizontalInput + orientation.forward * verticalInput;
 
-    direction = direction.normalized * moveSpeed;
+    direction = direction.normalized * CalculateSpeed();
 
     direction.y = CalculateGravity();
 
     characterController.Move(direction * Time.deltaTime);
+  }
+
+  float CalculateSpeed() {
+    if (!IsGrounded) {
+      return speed;
+    }
+
+    if (Input.GetKey(sprintKey)) {
+      speed = Mathf.Lerp(speed, sprintSpeed, sprintTransitSpeed * Time.deltaTime);
+    } else {
+      speed = Mathf.Lerp(speed, walkSpeed, sprintTransitSpeed * Time.deltaTime);
+    }
+
+    return speed;
   }
 
   float CalculateGravity() {

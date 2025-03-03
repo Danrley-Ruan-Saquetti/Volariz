@@ -236,16 +236,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 501120295017526137, guid: 493407c86ac7c97408a7d2b689f4bf59, type: 3}
-      propertyPath: gravity
-      value: 12
+      propertyPath: walkSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 501120295017526137, guid: 493407c86ac7c97408a7d2b689f4bf59, type: 3}
-      propertyPath: jumpForce
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 501120295017526137, guid: 493407c86ac7c97408a7d2b689f4bf59, type: 3}
-      propertyPath: jumpHeight
-      value: 1
+      propertyPath: sprintSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1432614926091365509, guid: 493407c86ac7c97408a7d2b689f4bf59, type: 3}
       propertyPath: m_Name
@@ -291,8 +287,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1523038256071651736, guid: 493407c86ac7c97408a7d2b689f4bf59, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
