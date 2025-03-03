@@ -1,4 +1,5 @@
 using UnityEngine;
+using Volariz.Editor.Inspector.Attributes;
 
 public class PlayerMovement : MonoBehaviour {
 

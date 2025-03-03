@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Volariz.Editor.Inspector.Attributes;
 
 [RequireComponent(typeof(ProceduralRecoil))]
 public abstract class Gun : MonoBehaviour {

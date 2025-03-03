@@ -1,4 +1,5 @@
 using UnityEngine;
+using Volariz.Editor.Inspector.Attributes;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour {
