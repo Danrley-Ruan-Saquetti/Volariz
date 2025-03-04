@@ -1,6 +1,5 @@
 using UnityEngine;
 using Volariz.Editor.Inspector.Attributes;
-using Volariz.Core.Manager;
 using Volariz.Data;
 
 namespace Volariz.Gameplay.Weapon.Components {
@@ -8,7 +7,6 @@ namespace Volariz.Gameplay.Weapon.Components {
 
     [Header("References")]
     [SerializeField] GunData gunData;
-    [SerializeField] ViewPointCameraManager viewPoint;
 
     [Header("State")]
     [SerializeField, Readonly] Vector3 currentRotation = Vector3.zero;
@@ -42,7 +40,6 @@ namespace Volariz.Gameplay.Weapon.Components {
 
     void UpdateRecoil() {
       transform.localRotation = Quaternion.Euler(currentRotation);
-      viewPoint.ApplyShake(currentRotation);
     }
 
     void CalculateNextRotation() {

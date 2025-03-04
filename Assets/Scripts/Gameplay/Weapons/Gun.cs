@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using Volariz.Editor.Inspector.Attributes;
-using Volariz.Core.Manager;
 using Volariz.Gameplay.Weapon.Components;
 using Volariz.Gameplay.Weapon.Projectiles;
 using Volariz.Data;
@@ -12,7 +11,7 @@ namespace Volariz.Gameplay.Weapon {
   public abstract class Gun : MonoBehaviour {
 
     [Header("References")]
-    [SerializeField] protected ViewPointCameraManager viewPoint;
+    public Camera viewPoint;
     public GunData gunData;
     public Transform attackPoint;
 
@@ -84,7 +83,7 @@ namespace Volariz.Gameplay.Weapon {
     }
 
     public Vector3 GetTargetPoint() {
-      Ray ray = viewPoint.Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+      Ray ray = viewPoint.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
       Vector3 targetPoint;
       if (Physics.Raycast(ray, out RaycastHit hit, gunData.shootingRange, gunData.targetLayerMask)) {
@@ -115,7 +114,7 @@ namespace Volariz.Gameplay.Weapon {
 
       projectile.direction = direction;
       projectile.shootForce = direction * gunData.projectileData.shootForce;
-      projectile.upwardForce = viewPoint.Camera.transform.up * gunData.projectileData.upwardForce;
+      projectile.upwardForce = viewPoint.transform.up * gunData.projectileData.upwardForce;
 
       return projectileGameObject;
     }
