@@ -935,6 +935,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335cb9ae67535584d851c84ed4a9cb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headTransform: {fileID: 1303876911}
+  sprintKey: 304
+  jumpKey: 32
+  walkSpeed: 7
+  sprintSpeed: 12
+  speedTransition: 5
+  jumpHeight: 1
+  gravity: 9.81
+  _velocity: {x: 0, y: 0, z: 0}
+  _speed: 0
 --- !u!114 &2002756840
 MonoBehaviour:
   m_ObjectHideFlags: 0
