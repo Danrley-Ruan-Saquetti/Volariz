@@ -17,7 +17,7 @@ namespace Volariz.Gameplay.Player {
 
     [Header("Movement")]
     [SerializeField] float walkSpeed = 7f;
-    [SerializeField] float sprintSpeed = 12f;
+    [SerializeField] float sprintSpeed = 20f;
     [SerializeField] float speedTransition = 1f;
 
     [Header("Jump")]
