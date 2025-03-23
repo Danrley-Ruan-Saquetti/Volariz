@@ -18,6 +18,9 @@ namespace Volariz.Data {
     public int magazineSize;
     public float reloadTime = 1_000f;
 
+    [Header("Projectile Config")]
+    public ProjectileData projectileData;
+
     [Header("Recoil Settings")]
     public Vector3 minRecoil;
     public Vector3 maxRecoil;

@@ -1233,7 +1233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewPoint: {fileID: 330585545}
   gunData: {fileID: 11400000, guid: 9a3bdcaed57df964f8e52e5a0324891e, type: 2}
-  fireRate: 5
   _nextTimeToFire: 0
 --- !u!4 &1838744374
 Transform:
