@@ -1,4 +1,5 @@
 using UnityEngine;
+using Volariz.Data;
 using Volariz.Editor.Inspector.Attributes;
 using Volariz.Gameplay.Weapon.Components;
 
@@ -9,16 +10,12 @@ namespace Volariz.Gameplay.Weapon {
 
     [Header("References")]
     [SerializeField] Camera viewPoint;
+    [SerializeField] protected GunData gunData;
 
     ProceduralRecoil proceduralRecoil;
 
-    [Header("Shoot Settings")]
-    [SerializeField] float fireRate = 5f;
-
     [Header("State")]
-    [SerializeField, Readonly] float _nextTimeToFire = 0f;
-
-    public bool IsTimeToFire { get { return Time.time >= _nextTimeToFire; } }
+    [SerializeField, Readonly] float _nextTimeToFire;
 
     void Start() {
       proceduralRecoil = GetComponent<ProceduralRecoil>();
@@ -31,22 +28,20 @@ namespace Volariz.Gameplay.Weapon {
     }
 
     void HandleShoot() {
+      _nextTimeToFire = Time.time + (1 / gunData.fireRate);
+
       Shoot();
       ApplyRecoil();
     }
 
-    public void Shoot() {
-      _nextTimeToFire = Time.time + (1 / fireRate);
-
-      Debug.Log("Shoot");
-    }
+    public virtual void Shoot() { }
 
     public virtual void ApplyRecoil() {
       proceduralRecoil.ApplyRecoil();
     }
 
     public bool CanFire() {
-      return IsTimeToFire;
+      return Time.time >= _nextTimeToFire;
     }
   }
 }

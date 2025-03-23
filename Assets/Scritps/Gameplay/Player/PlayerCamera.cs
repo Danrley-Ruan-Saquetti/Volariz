@@ -1,4 +1,5 @@
 using UnityEngine;
+using Volariz.Core;
 using Volariz.Editor.Inspector.Attributes;
 
 namespace Volariz.Gameplay.Player {
@@ -6,8 +7,8 @@ namespace Volariz.Gameplay.Player {
   public class PlayerCamera : MonoBehaviour {
 
     [Header("References")]
-    [SerializeField] Camera viewCamera;
-    [SerializeField] Transform playerBody;
+    [SerializeField] Transform player;
+    [SerializeField] MouseReadInput mouseRead;
 
     [Header("Rotation")]
     [SerializeField, Readonly] Vector3 masterRotation;
@@ -15,7 +16,7 @@ namespace Volariz.Gameplay.Player {
 
     [Header("Movement")]
     public Vector2 speed;
-    public Vector2 acceleration;
+    public Vector2 acceleration = Vector3.one;
 
     void Start() {
       Cursor.lockState = CursorLockMode.Locked;
@@ -29,28 +30,22 @@ namespace Volariz.Gameplay.Player {
     }
 
     void ReadInput() {
-      Vector3 mouseMove = new Vector3(-Input.GetAxisRaw("Mouse Y"), Input.GetAxisRaw("Mouse X"), 0);
+      Vector2 mouseEnter = new Vector2(-mouseRead.mouseEnter.y, mouseRead.mouseEnter.x);
 
-      ApplyRotation(Time.deltaTime * speed * acceleration * mouseMove);
+      ApplyRotation(Time.deltaTime * speed * acceleration * mouseEnter);
     }
 
-    public void SetRotation(Vector3 rotation) {
-      masterRotation = rotation;
-
-      masterRotation.x = AdjustRotationVertical(masterRotation.x);
-    }
-
-    public void ApplyRotation(Vector3 offset) {
+    void ApplyRotation(Vector3 offset) {
       masterRotation += offset;
 
       masterRotation.x = AdjustRotationVertical(masterRotation.x);
     }
 
-    public void RotatePlayerBody(Quaternion rotation) {
-      playerBody.localRotation = rotation;
+    void RotatePlayerBody(Quaternion rotation) {
+      player.localRotation = rotation;
     }
 
-    public void RotateCamera(Quaternion rotation) {
+    void RotateCamera(Quaternion rotation) {
       transform.localRotation = rotation;
     }
 
@@ -58,11 +53,11 @@ namespace Volariz.Gameplay.Player {
       return Mathf.Clamp(x, -maxRotationVertical, maxRotationVertical);
     }
 
-    public Quaternion CalculateRotationVertical() {
-      return Quaternion.Euler(masterRotation.x, masterRotation.y, 0);
+    Quaternion CalculateRotationVertical() {
+      return Quaternion.Euler(masterRotation.x, 0, 0);
     }
 
-    public Quaternion CalculateRotationHorizontal() {
+    Quaternion CalculateRotationHorizontal() {
       return Quaternion.Euler(0, masterRotation.y, 0);
     }
   }
