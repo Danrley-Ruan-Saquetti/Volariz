@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb6945bfd6509294bafa970a8197d96e, type: 3}
-  m_Name: Pistol
+  m_Name: Pistol Projectile
   m_EditorClassIdentifier: 
   model: {fileID: 8182914065443233508, guid: c84f61f73943d4f499c132eb9064c81f, type: 3}
-  shootForce: 50
-  upwardForce: 10
+  shootForce: 1
+  upwardForce: 1
   spread: 0

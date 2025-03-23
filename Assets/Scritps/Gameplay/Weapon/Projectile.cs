@@ -10,9 +10,9 @@ namespace Volariz.Gameplay.Weapon {
     [SerializeField, Readonly] Rigidbody rb;
 
     [Header("State")]
-    [Readonly] public Vector3 direction = Vector3.zero;
-    [Readonly] public Vector3 shootForce = Vector3.zero;
-    [Readonly] public Vector3 upwardForce = Vector3.zero;
+    [Readonly] public Vector3 direction;
+    [Readonly] public Vector3 shootForce;
+    [Readonly] public Vector3 upwardForce;
 
     [SerializeField, Readonly] bool collided = false;
 
@@ -26,7 +26,7 @@ namespace Volariz.Gameplay.Weapon {
     }
 
     void OnCollisionEnter(Collision collision) {
-      if (collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "Player" && !collided) {
+      if (!collided && !collision.gameObject.CompareTag("Weapon") && !collision.gameObject.CompareTag("Player")) {
         collided = true;
         Destroy(gameObject);
       }

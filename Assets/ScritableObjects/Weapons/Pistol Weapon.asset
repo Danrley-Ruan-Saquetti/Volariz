@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bde06ebf24e6d8f4bb171ac07377992e, type: 3}
-  m_Name: Pistol
+  m_Name: Pistol Weapon
   m_EditorClassIdentifier: 
   gunName: 
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  shootingRange: 10
-  fireRate: 10
+    m_Bits: 64
+  shootingRange: 10000
+  fireRate: 5
   isSingle: 0
   magazineSize: 30
   reloadTime: 200
+  projectileData: {fileID: 11400000, guid: 775af692b6336944e8b1f20179e49f72, type: 2}
   minRecoil: {x: -5, y: -2, z: -2}
   maxRecoil: {x: -2, y: 2, z: 2}
   resetAmount: 5
